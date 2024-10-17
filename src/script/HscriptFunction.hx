@@ -37,4 +37,21 @@ class HscriptFunction {
 		
 		return interp.execute(expr);
 	}
+
+	public function runRecursive(?p:Map<String,Dynamic>):Dynamic {
+
+		var newInterp = new hscript.Interp();
+		newInterp.variables = interp.variables.copy();
+
+		// use given function parameters p or the default value from params
+		if (p != null) {
+			for (k => v in params) {
+				if ( p.exists(k) ) newInterp.variables.set(k, p.get(k));
+				else newInterp.variables.set(k, v);
+			}
+		}
+		else for (k => v in params) newInterp.variables.set(k, v);
+		
+		return newInterp.execute(expr);
+	}
 }

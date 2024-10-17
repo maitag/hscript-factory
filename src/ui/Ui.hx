@@ -1,5 +1,6 @@
 package ui;
 
+import script.HscriptFunction;
 import lime.ui.MouseButton;
 import lime.ui.MouseWheelMode;
 
@@ -35,13 +36,20 @@ class Ui
 
 
 	public var onInit:Void->Void;
+	public var onRun:HscriptFunction->Void;
+
+	public var logArea:LogArea;
+	public var codeArea:CodeArea;
 
 	public function new(
 		peoteView:PeoteView,
-		onInit:Void->Void)
+		onInit:Void->Void,
+		onRun:HscriptFunction->Void
+	)
 	{
 		this.peoteView = peoteView;
 		this.onInit = onInit;
+		this.onRun = onRun;
 
 		// load font for UI
 		new Font<UiFontStyle>("assets/hack_ascii_small.json").load( onFontLoaded );
@@ -61,17 +69,18 @@ class Ui
 		peoteView.addDisplay(peoteUiDisplay);
 		
 		
-		// -----------------------------------
+		// --- code Area ------------------
 
-		var codeArea:CodeArea = new CodeArea();
+		codeArea = new CodeArea(onRun);
 		peoteUiDisplay.add(codeArea);
 		// to let drag the area
 		codeArea.setDragArea(0, 0, peoteUiDisplay.width, peoteUiDisplay.height);
 		codeArea.updateLayout();
 
-		// -----------------------------------
 
-		var logArea:LogArea = new LogArea();
+		// --- log Area ----------------
+
+		logArea = new LogArea();
 		peoteUiDisplay.add(logArea);
 		// to let drag the area
 		logArea.setDragArea(0, 0, peoteUiDisplay.width, peoteUiDisplay.height);
@@ -82,7 +91,9 @@ class Ui
 		// -----------------------------------
 		PeoteUIDisplay.registerEvents(peoteView.window);
 		onInit();
-	}	
+	}
+	
+
 
 
 }

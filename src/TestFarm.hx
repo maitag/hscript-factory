@@ -26,7 +26,7 @@ class TestFarm extends Application
 		
 		var f1 = new HscriptFunction("f1", [ "numbers" => [10,20,30] ],
 		"
-			var sum = 0;
+			var sum = 0; //sum += f3();
 			for( n in numbers )
 				sum += f2( [ 'x' => n ] );  // <-- calls f2 here
 			return sum + globalState;

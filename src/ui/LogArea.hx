@@ -21,6 +21,8 @@ import peote.ui.style.*;
 
 class LogArea extends UIArea
 {
+	public var textPage:UITextPage<UiFontStyle>;
+
 	public function new()
 	{
 		// -----------------------------------------------------------
@@ -59,11 +61,10 @@ class LogArea extends UIArea
 			undoBufferSize:100
 		}
 		
-		var textPage = new UITextPage<UiFontStyle>(gap, headerSize + gap + 1,
+		textPage = new UITextPage<UiFontStyle>(gap, headerSize + gap + 1,
 			width - sliderSize - gap - gap - 1,
 			height - headerSize - sliderSize - 2 - gap - gap,
-			"output here",
-				Ui.font, Ui.fontStyleBG, textConfig
+			"", Ui.font, Ui.fontStyleBG, textConfig
 		);
 		
 		textPage.onPointerDown = function(t, e) {
@@ -120,5 +121,8 @@ class LogArea extends UIArea
 
 	}	
 
-	
+	public function log(s:String, clear = false) {
+		if (clear) textPage.text = s;
+		else textPage.appendChars(s);	
+	}
 }
