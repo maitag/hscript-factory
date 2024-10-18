@@ -3,11 +3,16 @@ package;
 import lime.app.Application;
 import lime.ui.Window;
 
+import hscript.Expr.Error;
+
 import peote.view.PeoteView;
 import peote.view.Display;
 import peote.view.Color;
 
 import ui.Ui;
+import script.HscriptFarm;
+import script.HscriptFunction;
+import script.HscriptObject;
 
 class Main extends Application
 {
@@ -32,17 +37,54 @@ class Main extends Application
 		display = new Display(0, 0, window.width, window.height);
 		peoteView.addDisplay(display);
 
-
-		ui = new Ui(peoteView, onUIInit);
-		
+		ui = new Ui(peoteView, onUIInit, onRun);		
 	}
 	
+	public var object:HscriptObject;
+	public var funky:HscriptFunction; // little hack to make it testable still at NOW
 
 	public function onUIInit() 
 	{
-		trace("onUiInit");
+		// -------------- Farmers joy --------------------
+
+		var farm = new HscriptFarm();trace(farm.objects);
+
+		funky = new HscriptFunction("funky1", [],
+		"trace('hello world', globalState);
+return 1;
+		");
+		
+		ui.codeArea.textPage.text = funky.script;
+		ui.codeArea.textPage.xOffset = ui.codeArea.textPage.yOffset = 0;
+		ui.codeArea.textPage.updateLayout();
+
+		object = new HscriptObject("test", ["globalState" => 43 ] );
+		object.addFunction(funky);
 
 	}	
 
-
+	public function onRun()
+	{	
+		funky.script = ui.codeArea.textPage.text;
+		
+		var e = object.parseFunction(funky);
+		if (e != null) 
+		{
+			ui.logArea.log( "parse error:" + e.toString() + "\n");
+			// ui.logArea.log( 'line:${e.line+1}, pos:(${e.pmin},${e.pmax}), error: ${e.toString()}\n' );
+			ui.codeArea.textPage.select(0, 666666, e.line, e.line);
+		}
+		else {
+			try {
+				ui.logArea.log(
+					(funky.run( [ ] ):String) + "\n"
+				);
+			} 
+			catch (e:Error) {
+				ui.logArea.log( "execution error:" + e.toString() + "\n");
+				ui.codeArea.textPage.select(0, 666666, e.line, e.line);
+			}
+		}
+	}
+	
 }

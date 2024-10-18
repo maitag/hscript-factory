@@ -10,7 +10,7 @@ class HscriptFarm {
 		return parser;
 	}
 	
-	var objects = new Map<String, HscriptObject>();
+	public var objects = new Map<String, HscriptObject>();
 
 	public function new() {
 	}

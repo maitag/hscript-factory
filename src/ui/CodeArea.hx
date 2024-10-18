@@ -24,10 +24,10 @@ import script.HscriptFunction;
 
 class CodeArea extends UIArea
 {
-	public var onRun:HscriptFunction->Void;
+	public var onRun:Void->Void;
 	public var textPage:UITextPage<UiFontStyle>;
 
-	public function new(onRun:HscriptFunction->Void)
+	public function new(onRun:Void->Void)
 	{
 		this.onRun = onRun;
 
@@ -70,8 +70,7 @@ class CodeArea extends UIArea
 		);
 
 		runButton.onPointerClick = (_,_) -> {
-			TestPeoteView.funky.script = textPage.text;
-			onRun(TestPeoteView.funky);
+			onRun();
 		}
 		
 		add(runButton);
@@ -92,7 +91,7 @@ class CodeArea extends UIArea
 		textPage = new UITextPage<UiFontStyle>(gap, headerSize + gap + 1,
 			width - sliderSize - gap - gap - 1,
 			height - headerSize - sliderSize - 2 - gap - gap,
-			"trace(\"Haxe is great!\");",
+			"",
 			Ui.font, Ui.fontStyleBG, textConfig
 		);
 		

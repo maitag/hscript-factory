@@ -36,7 +36,7 @@ class Ui
 
 
 	public var onInit:Void->Void;
-	public var onRun:HscriptFunction->Void;
+	public var onRun:Void->Void;
 
 	public var logArea:LogArea;
 	public var codeArea:CodeArea;
@@ -44,7 +44,7 @@ class Ui
 	public function new(
 		peoteView:PeoteView,
 		onInit:Void->Void,
-		onRun:HscriptFunction->Void
+		onRun:Void->Void
 	)
 	{
 		this.peoteView = peoteView;

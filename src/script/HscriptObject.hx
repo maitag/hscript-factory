@@ -1,6 +1,6 @@
 package script;
 
-import hscript.Parser;
+import hscript.Expr.Error;
 
 class HscriptObject {
 
@@ -23,10 +23,12 @@ class HscriptObject {
 	
 	
 	public function parse() {
-		for (f in functions) parseFunction(f);
+		for (f in functions) {
+			parseFunction(f);
+		}
 	}
 	
-	public function parseFunction(f:HscriptFunction) {
+	public function parseFunction(f:HscriptFunction):Error {
 
 		// check if a global propertie is used
 		for (property => value in properties) {
@@ -58,7 +60,7 @@ class HscriptObject {
 			}
 		}
 
-		f.parse();
+		return f.parse();
 	}
 
 

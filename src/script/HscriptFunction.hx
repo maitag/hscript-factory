@@ -1,6 +1,7 @@
 package script;
 
 import hscript.Expr;
+import hscript.Expr.Error;
 import hscript.Interp;
 
 class HscriptFunction {
@@ -21,8 +22,11 @@ class HscriptFunction {
 		// interp.variables.set("Math",Math); // share the Math class
 	}
 
-	public function parse() {
-		expr = HscriptFarm.parser.parseString(script);
+	public function parse():Error {
+		HscriptFarm.parser.line = 0;
+		try	expr = HscriptFarm.parser.parseString(script)
+		catch (e:Error) return(e);
+		return null;
 	}
 
 	public function run(?p:Map<String,Dynamic>):Dynamic {
