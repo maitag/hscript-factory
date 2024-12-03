@@ -20,6 +20,8 @@ import peote.ui.interactive.UISlider;
 import peote.ui.config.ResizeType;
 import peote.ui.event.WheelEvent;
 
+import ui.interactive.UIAreaList;
+
 
 class Ui
 {
@@ -85,6 +87,17 @@ class Ui
 		// to let drag the area
 		logArea.setDragArea(0, 0, peoteUiDisplay.width, peoteUiDisplay.height);
 		logArea.updateLayout();
+
+
+		// --- object Area ----------------
+
+		var objArea = new UIAreaList(500,0,200,300, 0,
+		// {
+			//backgroundStyle:null
+		// }
+		);
+		peoteUiDisplay.add(objArea);
+		objArea.updateLayout();
 
 
 

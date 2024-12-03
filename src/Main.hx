@@ -47,25 +47,34 @@ class Main extends Application
 	{
 		// -------------- Farmers joy --------------------
 
-		var farm = new HscriptFarm();trace(farm.objects);
+		var farm = new HscriptFarm(); trace(farm.objects);
 
-		funky = new HscriptFunction("funky1", [],
-		"trace('hello world', globalState);
-return 1;
-		");
+		funky = new HscriptFunction("funky", ["p" => 3],
+'//trace("hello world", globalState);
+log(p+"\\n");
+if (p>0) funky(["p"=>p-1]); // <- recursive call
+return "end";
+'
+		);
 		
 		ui.codeArea.textPage.text = funky.script;
 		ui.codeArea.textPage.xOffset = ui.codeArea.textPage.yOffset = 0;
 		ui.codeArea.textPage.updateLayout();
 
-		object = new HscriptObject("test", ["globalState" => 43 ] );
+		object = new HscriptObject("test", [
+				"globalState" => 43,
+				"Math" => Math,
+				"log" => ui.logArea.log,
+				"stamp" => haxe.Timer.stamp,
+				"Timer" => haxe.Timer
+			]);
 		object.addFunction(funky);
-
 	}	
 
 	public function onRun()
 	{	
 		funky.script = ui.codeArea.textPage.text;
+		
 		
 		var e = object.parseFunction(funky);
 		if (e != null) 
@@ -79,6 +88,7 @@ return 1;
 				ui.logArea.log(
 					(funky.run( [ ] ):String) + "\n"
 				);
+				trace(funky.expr);
 			} 
 			catch (e:Error) {
 				ui.logArea.log( "execution error:" + e.toString() + "\n");

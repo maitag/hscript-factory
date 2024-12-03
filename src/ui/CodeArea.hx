@@ -57,7 +57,7 @@ class CodeArea extends UIArea
 		
 		var header = new UITextLine<UiFontStyle>(gap, gap,
 			0, headerSize, 
-			"testFunctionName", Ui.font, Ui.fontStyleFG, { backgroundStyle:Ui.styleBG }
+			"funky", Ui.font, Ui.fontStyleFG, { backgroundStyle:Ui.styleBG }
 		);
 		// start/stop area-dragging
 		header.onPointerDown = (_, e:PointerEvent)-> startDragging(e);
