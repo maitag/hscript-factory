@@ -1,11 +1,5 @@
 package ui;
 
-import haxe.CallStack;
-
-import lime.app.Application;
-import lime.ui.Window;
-
-import peote.view.PeoteView;
 import peote.view.Color;
 
 import peote.text.Font;

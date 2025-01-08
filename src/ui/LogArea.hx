@@ -122,6 +122,7 @@ class LogArea extends UIArea
 	}	
 
 	public function log(s:String, clear = false) {
+		s += "\n";
 		if (clear) textPage.text = s;
 		else textPage.appendChars(s);
 		textPage.cursorPageEnd();

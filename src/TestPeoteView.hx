@@ -3,6 +3,7 @@ package;
 import lime.app.Application;
 import lime.ui.Window;
 
+import haxe.Exception;
 import hscript.Expr.Error;
 
 import peote.view.PeoteView;
@@ -83,14 +84,18 @@ b.addElement(e);"
 	{	
 		funky.script = ui.codeArea.textPage.text;
 		
+		
 		var e = object.parseFunction(funky);
+		trace(funky.expr);
+		
 		if (e != null) 
 		{
 			ui.logArea.log( "parse error:" + e.toString() + "\n");
 			// ui.logArea.log( 'line:${e.line+1}, pos:(${e.pmin},${e.pmax}), error: ${e.toString()}\n' );
-			ui.codeArea.textPage.select(0, 666666, e.line, e.line);
+			ui.codeArea.textPage.select(0, 66666666, e.line, e.line);
 		}
 		else {
+
 			try {
 				ui.logArea.log(
 					(funky.run( [ ] ):String) + "\n"
@@ -99,6 +104,12 @@ b.addElement(e);"
 			catch (e:Error) {
 				ui.logArea.log( "execution error:" + e.toString() + "\n");
 				ui.codeArea.textPage.select(0, 666666, e.line, e.line);
+			}
+			catch (e:Exception) {
+				ui.logArea.log( "execution error Exception:" + e.toString() + "\n");
+				var line:Int = funky.interp.posInfos().lineNumber;
+				ui.codeArea.textPage.select(0, 666666, line, line);
+				// trace(e.stack);
 			}
 		}
 	}
