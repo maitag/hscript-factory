@@ -8,7 +8,11 @@
 	<!-- check this for GG-Playstore: <setenv name="ANDROID_GRADLE_TASK" value=":app:bundleRelease" /> -->
 	
 	<!-- <app main="Main" path="bin" file="Main" /> -->
-	<app main="TestFarm" path="bin" file="TestFarm" />
+	<!-- <app main="TestPeoteView" path="bin" file="TestPeoteView" /> -->
+	<app main="TestPeoteShader" path="bin" file="TestPeoteShader" />
+	<!-- <app main="TestFarm" path="bin" file="TestFarm" /> -->
+	
+	<haxedef name="hscriptPos" />
 	
 	<!--<define name="stats" if="html5" />-->
 	
@@ -32,7 +36,6 @@
 	<haxelib name="input2action" />
 	<haxelib name="peote-ui" />
 	
-	<!-- TODO: --><!-- <haxedef name="peoteui_multitouch" /> -->
 	
 	<define name="peoteui_maxDisplays" value="10" /> <!-- for optimization use "1" (max is 32) -->
 
