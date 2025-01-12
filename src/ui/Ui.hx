@@ -91,7 +91,7 @@ class Ui
 
 		// --- object Area ----------------
 
-		var objArea = new UIAreaList(500,0,200,300, 0,
+		var objArea = new UIAreaList(500,0,200,300, 0
 		// {
 			//backgroundStyle:null
 		// }
